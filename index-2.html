@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- 🛠 EDITE: título da aba do navegador -->
+  <title>NOME DO ADVOGADO — Advocacia</title>
+  <meta name="description" content="Escritório de advocacia especializado. Consulta jurídica com excelência." />
+
+  <!-- Favicon — 🛠 EDITE: troque pela URL do seu logo -->
+  <link rel="icon" type="image/png" href="https://placehold.co/200x80?text=LOGO" />
+  <link rel="apple-touch-icon" href="https://placehold.co/200x80?text=LOGO" />
+  <meta property="og:image" content="https://placehold.co/200x80?text=LOGO" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Mulish:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       VARIÁVEIS — 🛠 EDITE CORES AQUI
+    ============================================================ */
+    :root {
+      --primary:   #1B3A6B;   /* 🛠 Azul-marinho principal */
+      --primary-l: #254d8f;   /* azul mais claro */
+      --gold:      #C4A052;   /* dourado de destaque */
+      --gold-l:    #d9b86b;
+      --dark:      #0A0E17;   /* fundo */
+      --dark-2:    #111827;   /* cards */
+      --dark-3:    #1a2335;   /* hover */
+      --light:     #EEF2F7;   /* texto */
+      --muted:     rgba(238,242,247,.5);
+      --font-title: 'Playfair Display', Georgia, serif;
+      --font-body:  'Mulish', sans-serif;
+      --radius:    8px;
+      --transition: .3s cubic-bezier(.4,0,.2,1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--dark);
+      color: var(--light);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── Botões ── */
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: var(--gold); color: var(--dark);
+      font-family: var(--font-body); font-weight: 700; font-size: .85rem;
+      letter-spacing: .08em; text-transform: uppercase;
+      padding: .8rem 1.9rem; border-radius: 2px;
+      border: none; cursor: pointer;
+      transition: background var(--transition), transform var(--transition);
+    }
+    .btn-primary:hover { background: var(--gold-l); transform: translateY(-1px); }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: transparent; color: var(--light);
+      font-family: var(--font-body); font-weight: 500; font-size: .85rem;
+      letter-spacing: .08em; text-transform: uppercase;
+      padding: .8rem 1.9rem; border-radius: 2px;
+      border: 1px solid rgba(238,242,247,.2); cursor: pointer;
+      transition: border-color var(--transition), color var(--transition);
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* ── Labels de seção ── */
+    .section-label {
+      display: inline-flex; align-items: center; gap: .6rem;
+      font-size: .72rem; font-weight: 600; letter-spacing: .25em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: .75rem;
+    }
+    .section-label::before {
+      content: ''; width: 24px; height: 1px; background: var(--gold);
+    }
+    .section-title {
+      font-family: var(--font-title);
+      font-size: clamp(2rem, 4.5vw, 3.5rem);
+      font-weight: 700; line-height: 1.1; margin-bottom: 1rem;
+    }
+    .section-sub {
+      color: var(--muted); font-size: .95rem;
+      max-width: 500px; margin-bottom: 3rem; line-height: 1.75;
+    }
+
+    /* ── Linha ornamental ── */
+    .divider {
+      width: 48px; height: 2px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      margin: 1.25rem 0 2.5rem;
+    }
+
+    /* ============================================================
+       NAVBAR
+    ============================================================ */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(10,14,23,.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(196,160,82,.1);
+    }
+    .nav-inner {
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 1rem;
+      padding: 1rem 1.5rem;
+    }
+    .nav-logo-wrap {
+      display: flex; align-items: center; gap: .85rem;
+      text-decoration: none;
+    }
+    .nav-logo-img { height: 38px; width: auto; object-fit: contain; }
+    /* 🛠 EDITE: nome no navbar */
+    .brand-name {
+      font-family: var(--font-title);
+      font-size: 1.25rem; font-weight: 700;
+      color: var(--light); letter-spacing: .02em; line-height: 1.1;
+    }
+    .brand-sub {
+      font-size: .65rem; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--gold); font-family: var(--font-body); font-weight: 600;
+      display: block; margin-top: .1rem;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted); font-size: .82rem; font-weight: 500;
+      letter-spacing: .06em; text-transform: uppercase;
+      transition: color var(--transition);
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-right { display: flex; align-items: center; gap: .6rem; }
+
+    /* CTA WhatsApp navbar */
+    #navWaBtn {
+      display: inline-flex; align-items: center; gap: .45rem;
+      background: var(--gold); color: var(--dark);
+      font-family: var(--font-body); font-weight: 700; font-size: .78rem;
+      letter-spacing: .07em; text-transform: uppercase;
+      padding: .6rem 1.2rem; border-radius: 2px;
+      transition: background var(--transition);
+    }
+    #navWaBtn:hover { background: var(--gold-l); }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .brand-sub { display: none; }
+      .brand-name { font-size: 1.05rem; }
+      .nav-logo-img { height: 30px; }
+      #navWaBtn { padding: .55rem .9rem; font-size: .72rem; }
+      #navWaBtn svg { width: 14px; height: 14px; }
+    }
+    @media (max-width: 380px) {
+      .brand-name { display: none; }
+      #navWaBtn .wa-label { display: none; }
+      #navWaBtn { padding: .55rem .7rem; }
+    }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      position: relative; overflow: hidden;
+      padding: 8rem 0 5rem;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 60% 70% at 30% 50%, rgba(27,58,107,.35) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 50% at 80% 80%, rgba(196,160,82,.06) 0%, transparent 60%),
+        var(--dark);
+    }
+    /* Padrão sutil de linhas diagonais */
+    .hero-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(
+        -45deg,
+        rgba(196,160,82,.025) 0px,
+        rgba(196,160,82,.025) 1px,
+        transparent 1px,
+        transparent 40px
+      );
+    }
+    .hero-content {
+      position: relative; z-index: 1;
+      display: grid; grid-template-columns: 1.1fr .9fr;
+      gap: 5rem; align-items: center;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: .75rem;
+      font-size: .72rem; font-weight: 700; letter-spacing: .25em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 1.75rem;
+    }
+    .hero-eyebrow::before, .hero-eyebrow::after {
+      content: ''; width: 20px; height: 1px; background: var(--gold);
+    }
+    /* 🛠 EDITE: título do hero */
+    .hero-title {
+      font-family: var(--font-title);
+      font-size: clamp(2.8rem, 6vw, 5.5rem);
+      line-height: .95; margin-bottom: 1.5rem; font-weight: 900;
+    }
+    .hero-title .accent { color: var(--gold); display: block; }
+    .hero-title em { font-style: italic; color: var(--muted); font-weight: 400; font-size: .7em; display: block; margin-top: .3rem; }
+    .hero-desc {
+      color: var(--muted); font-size: .95rem; line-height: 1.8;
+      max-width: 420px; margin-bottom: 2.25rem;
+    }
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem; }
+    .hero-badges {
+      display: flex; gap: 1.5rem; flex-wrap: wrap;
+    }
+    .hero-badge-item {
+      display: flex; align-items: center; gap: .5rem;
+      font-size: .78rem; color: var(--muted);
+    }
+    .hero-badge-item span { color: var(--gold); }
+
+    /* Painel direito — cards de estatística */
+    .hero-stats {
+      display: flex; flex-direction: column; gap: 1px;
+      background: rgba(196,160,82,.1);
+      border: 1px solid rgba(196,160,82,.15);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .stat-item {
+      background: var(--dark-2);
+      padding: 1.75rem 2rem;
+      transition: background var(--transition);
+    }
+    .stat-item:hover { background: var(--dark-3); }
+    .stat-number {
+      font-family: var(--font-title); font-size: 2.8rem;
+      font-weight: 900; color: var(--gold); line-height: 1;
+      margin-bottom: .25rem;
+    }
+    .stat-label { color: var(--muted); font-size: .82rem; letter-spacing: .04em; }
+
+    @media (max-width: 768px) {
+      .hero-content { grid-template-columns: 1fr; }
+      .hero-stats { flex-direction: row; flex-wrap: wrap; }
+      .stat-item { flex: 1; min-width: 120px; }
+    }
+
+    /* ============================================================
+       MARQUEE
+    ============================================================ */
+    .marquee-wrap {
+      overflow: hidden; padding: .9rem 0;
+      border-top: 1px solid rgba(196,160,82,.1);
+      border-bottom: 1px solid rgba(196,160,82,.1);
+      background: rgba(196,160,82,.03);
+    }
+    .marquee-track {
+      display: flex; gap: 2.5rem; width: max-content;
+      animation: marquee 28s linear infinite;
+    }
+    .marquee-item {
+      display: flex; align-items: center; gap: .65rem;
+      white-space: nowrap; color: var(--muted);
+      font-size: .75rem; letter-spacing: .15em; text-transform: uppercase;
+      font-weight: 500;
+    }
+    .marquee-item span { color: var(--gold); }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ============================================================
+       ÁREAS DE ATUAÇÃO
+    ============================================================ */
+    .areas { padding: 6rem 0; }
+    .areas-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 1px;
+      background: rgba(196,160,82,.1); border: 1px solid rgba(196,160,82,.1);
+      border-radius: var(--radius); overflow: hidden;
+      margin-top: 3rem;
+    }
+    /* 🛠 EDITE: cards de áreas — procure por "area-card" */
+    .area-card {
+      background: var(--dark-2);
+      padding: 2.25rem 2rem;
+      transition: background var(--transition);
+      position: relative; overflow: hidden;
+    }
+    .area-card::after {
+      content: ''; position: absolute;
+      bottom: 0; left: 0; right: 0; height: 2px;
+      background: var(--gold); transform: scaleX(0);
+      transition: transform var(--transition);
+      transform-origin: left;
+    }
+    .area-card:hover { background: var(--dark-3); }
+    .area-card:hover::after { transform: scaleX(1); }
+    .area-icon {
+      font-size: 2rem; margin-bottom: 1.25rem; display: block;
+    }
+    .area-card h3 {
+      font-family: var(--font-title); font-size: 1.2rem; font-weight: 700;
+      margin-bottom: .6rem; color: var(--light);
+    }
+    .area-card p { color: var(--muted); font-size: .85rem; line-height: 1.7; }
+
+    @media (max-width: 768px) { .areas-grid { grid-template-columns: 1fr; } }
+
+    /* ============================================================
+       SOBRE / ADVOGADO
+    ============================================================ */
+    .sobre { padding: 6rem 0; background: rgba(196,160,82,.02); }
+    .sobre-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center;
+    }
+    .sobre-photo {
+      position: relative;
+    }
+    .sobre-photo-frame {
+      background: var(--dark-2);
+      border: 1px solid rgba(196,160,82,.2);
+      border-radius: var(--radius);
+      aspect-ratio: 3/4; max-width: 360px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: .88rem; text-align: center;
+      flex-direction: column; gap: 1rem;
+      position: relative; overflow: hidden;
+    }
+    .sobre-photo-frame span { font-size: 3rem; opacity: .3; }
+    /* Borda decorativa no canto */
+    .sobre-photo-frame::before {
+      content: '';
+      position: absolute; top: -1px; left: -1px;
+      width: 60px; height: 60px;
+      border-top: 3px solid var(--gold);
+      border-left: 3px solid var(--gold);
+    }
+    .sobre-photo-frame::after {
+      content: '';
+      position: absolute; bottom: -1px; right: -1px;
+      width: 60px; height: 60px;
+      border-bottom: 3px solid var(--gold);
+      border-right: 3px solid var(--gold);
+    }
+    /* 🛠 EDITE: informações do advogado */
+    .sobre-oab {
+      display: inline-block; margin-top: 1.25rem;
+      background: rgba(196,160,82,.1); border: 1px solid rgba(196,160,82,.25);
+      color: var(--gold); font-size: .75rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      padding: .35rem 1rem; border-radius: 2px;
+    }
+    .sobre-text blockquote {
+      border-left: 3px solid var(--gold);
+      padding-left: 1.25rem; margin-bottom: 1.75rem;
+      font-family: var(--font-title); font-size: 1.15rem; font-style: italic;
+      color: rgba(238,242,247,.7); line-height: 1.6;
+    }
+    .sobre-credentials { display: flex; flex-direction: column; gap: .75rem; margin-top: 1.75rem; }
+    .credential-item {
+      display: flex; gap: .75rem; align-items: flex-start;
+    }
+    .credential-bullet {
+      width: 6px; height: 6px; border-radius: 50%; background: var(--gold);
+      margin-top: .45rem; flex-shrink: 0;
+    }
+    .credential-text { color: var(--muted); font-size: .88rem; line-height: 1.5; }
+    .credential-text strong { color: var(--light); }
+
+    @media (max-width: 768px) {
+      .sobre-inner { grid-template-columns: 1fr; }
+      .sobre-photo { display: flex; justify-content: center; }
+    }
+
+    /* ============================================================
+       PROCESSO / COMO FUNCIONA
+    ============================================================ */
+    .processo { padding: 6rem 0; }
+    .processo-steps {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 0; margin-top: 3rem; position: relative;
+    }
+    .processo-steps::before {
+      content: '';
+      position: absolute; top: 28px; left: 12.5%; right: 12.5%; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), var(--gold), transparent);
+      opacity: .3;
+    }
+    /* 🛠 EDITE: etapas do processo — procure por "step-card" */
+    .step-card { padding: 0 1.5rem; text-align: center; }
+    .step-number {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: var(--dark-2); border: 1px solid rgba(196,160,82,.3);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-title); font-size: 1.3rem; font-weight: 900;
+      color: var(--gold); margin: 0 auto 1.5rem;
+    }
+    .step-card h3 {
+      font-family: var(--font-title); font-size: 1.05rem; font-weight: 700;
+      margin-bottom: .5rem;
+    }
+    .step-card p { color: var(--muted); font-size: .82rem; line-height: 1.65; }
+
+    @media (max-width: 768px) {
+      .processo-steps { grid-template-columns: 1fr 1fr; gap: 2rem; }
+      .processo-steps::before { display: none; }
+    }
+    @media (max-width: 480px) {
+      .processo-steps { grid-template-columns: 1fr; }
+    }
+
+    /* ============================================================
+       DEPOIMENTOS
+    ============================================================ */
+    .depoimentos { padding: 6rem 0; background: rgba(196,160,82,.02); }
+    .depo-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 3rem;
+    }
+    /* 🛠 EDITE: depoimentos — procure por "depo-card" */
+    .depo-card {
+      background: var(--dark-2);
+      border: 1px solid rgba(196,160,82,.1);
+      border-radius: var(--radius);
+      padding: 2rem; position: relative;
+    }
+    .depo-quote {
+      font-family: var(--font-title); font-size: 4rem; font-weight: 900;
+      color: var(--gold); opacity: .2; line-height: .8;
+      margin-bottom: .5rem;
+    }
+    .depo-text {
+      color: var(--muted); font-size: .88rem; line-height: 1.75;
+      font-style: italic; margin-bottom: 1.5rem;
+    }
+    .depo-stars { color: var(--gold); font-size: .85rem; margin-bottom: 1rem; }
+    .depo-author { display: flex; align-items: center; gap: .75rem; }
+    .depo-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--primary-l));
+      border: 1px solid rgba(196,160,82,.3);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-title); font-weight: 700; font-size: 1rem;
+      color: var(--gold); flex-shrink: 0;
+    }
+    .depo-name { font-weight: 600; font-size: .88rem; }
+    .depo-role { color: var(--muted); font-size: .75rem; margin-top: .1rem; }
+
+    @media (max-width: 768px) { .depo-grid { grid-template-columns: 1fr; } }
+
+    /* ============================================================
+       CONTATO / CTA
+    ============================================================ */
+    .contato { padding: 6rem 0; }
+    .contato-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: start;
+    }
+    .contact-info { display: flex; flex-direction: column; gap: 1.5rem; }
+    .contact-item { display: flex; gap: 1rem; }
+    .contact-icon {
+      width: 46px; height: 46px; border-radius: var(--radius);
+      background: rgba(196,160,82,.08); border: 1px solid rgba(196,160,82,.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+    }
+    .contact-label {
+      font-size: .7rem; letter-spacing: .15em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: .2rem; font-weight: 700;
+    }
+    /* 🛠 EDITE: informações de contato — procure por "contact-value" */
+    .contact-value { color: var(--light); font-size: .9rem; }
+
+    /* Formulário de contato */
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: .4rem; }
+    .form-label {
+      font-size: .72rem; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .form-input, .form-select, .form-textarea {
+      background: var(--dark-2);
+      border: 1px solid rgba(196,160,82,.15);
+      border-radius: var(--radius); color: var(--light);
+      font-family: var(--font-body); font-size: .9rem;
+      padding: .75rem 1rem; outline: none; width: 100%;
+      transition: border-color var(--transition);
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--gold);
+    }
+    .form-select option { background: var(--dark-2); }
+    .form-textarea { resize: vertical; min-height: 100px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-submit {
+      width: 100%; padding: 1rem;
+      background: var(--gold); color: var(--dark);
+      border: none; border-radius: var(--radius);
+      font-family: var(--font-body); font-weight: 700;
+      font-size: .88rem; letter-spacing: .08em; text-transform: uppercase;
+      cursor: pointer; transition: background var(--transition);
+    }
+    .form-submit:hover { background: var(--gold-l); }
+    .form-disclaimer {
+      font-size: .72rem; color: var(--muted); text-align: center; line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      .contato-inner { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    footer {
+      background: #060810;
+      border-top: 1px solid rgba(196,160,82,.1);
+      padding: 3rem 0 1.5rem;
+    }
+    .footer-inner {
+      display: grid; grid-template-columns: 2fr 1fr 1fr;
+      gap: 3rem; padding-bottom: 2rem;
+      border-bottom: 1px solid rgba(196,160,82,.08);
+      margin-bottom: 1.5rem;
+    }
+    /* 🛠 EDITE: nome no footer */
+    .footer-brand {
+      font-family: var(--font-title); font-size: 1.5rem; font-weight: 700;
+      margin-bottom: .35rem;
+    }
+    .footer-brand span { color: var(--gold); }
+    .footer-oab {
+      font-size: .7rem; letter-spacing: .15em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: .75rem; font-weight: 700;
+    }
+    .footer-desc { color: var(--muted); font-size: .85rem; line-height: 1.65; max-width: 280px; }
+    .footer-col h4 {
+      font-size: .7rem; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1rem; font-weight: 700;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: .5rem; }
+    .footer-col ul li a { color: var(--muted); font-size: .85rem; transition: color var(--transition); }
+    .footer-col ul li a:hover { color: var(--gold); }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      color: var(--muted); font-size: .75rem;
+    }
+    .footer-disclaimer {
+      font-size: .72rem; color: rgba(238,242,247,.25); text-align: center;
+      margin-top: 1rem; line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; gap: .5rem; text-align: center; }
+    }
+
+    /* ============================================================
+       BOTÃO WA FLUTUANTE
+    ============================================================ */
+    .wa-float {
+      position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 99;
+      display: flex; align-items: center; gap: .6rem;
+      background: #25D366; color: #fff;
+      padding: .75rem 1.25rem; border-radius: 50px;
+      font-family: var(--font-body); font-weight: 700; font-size: .82rem;
+      box-shadow: 0 4px 20px rgba(37,211,102,.35);
+      transition: transform var(--transition), box-shadow var(--transition);
+      white-space: nowrap;
+    }
+    .wa-float:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(37,211,102,.45); }
+
+    @media (max-width: 480px) {
+      .wa-float .wa-text { display: none; }
+      .wa-float { padding: .8rem; border-radius: 50%; }
+    }
+
+    /* ============================================================
+       TOAST
+    ============================================================ */
+    .toast {
+      position: fixed; bottom: 5rem; left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--dark-3); border: 1px solid rgba(196,160,82,.3);
+      color: var(--light); padding: .6rem 1.4rem; border-radius: 2px;
+      font-size: .83rem; font-weight: 600; z-index: 300;
+      opacity: 0; transition: opacity .25s, transform .25s; pointer-events: none;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ============================================================
+       ANIMAÇÕES
+    ============================================================ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; } to { opacity: 1; }
+    }
+    .fade-up { animation: fadeUp .8s ease both; }
+    .fade-up-d1 { animation: fadeUp .8s .1s ease both; }
+    .fade-up-d2 { animation: fadeUp .8s .2s ease both; }
+    .fade-up-d3 { animation: fadeUp .8s .3s ease both; }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       NAVBAR
+  ============================================================ -->
+  <nav>
+    <div class="nav-inner">
+      <!-- 🛠 EDITE: logo e nome -->
+      <a href="#" class="nav-logo-wrap">
+        <img src="https://placehold.co/200x80?text=LOGO"
+             alt="Logo do escritório"
+             class="nav-logo-img"
+             onerror="this.style.display='none'" />
+        <div>
+          <!-- 🛠 EDITE: nome do advogado/escritório -->
+          <div class="brand-name">DR. NOME SOBRENOME</div>
+          <span class="brand-sub">Advocacia & Consultoria</span>
+        </div>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#areas">Áreas de Atuação</a></li>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#processo">Como Funciona</a></li>
+        <li><a href="#depoimentos">Clientes</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+
+      <div class="nav-right">
+        <!-- 🛠 EDITE: número WhatsApp (formato: 5511999999999) -->
+        <a href="https://wa.me/5511999999999?text=Olá!%20Gostaria%20de%20agendar%20uma%20consulta." target="_blank" id="navWaBtn">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+            <path d="M12 0C5.373 0 0 5.373 0 12c0 2.116.551 4.107 1.516 5.836L.057 23.204a.75.75 0 00.92.92l5.368-1.459A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/>
+          </svg>
+          <span class="wa-label">Agendar Consulta</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       HERO
+  ============================================================ -->
+  <section class="hero" id="inicio">
+    <div class="hero-bg"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="fade-up">
+          <!-- 🛠 EDITE: especialidade em destaque -->
+          <div class="hero-eyebrow">Especialista em Direito Civil</div>
+
+          <!-- 🛠 EDITE: título principal -->
+          <h1 class="hero-title">
+            DEFENDA<br/>
+            <span class="accent">SEUS DIREITOS</span>
+            <em>com quem entende do assunto</em>
+          </h1>
+
+          <!-- 🛠 EDITE: subtítulo -->
+          <p class="hero-desc">
+            Assessoria jurídica personalizada, transparente e eficaz.
+            Atendemos pessoas físicas e jurídicas em todo o Brasil com
+            dedicação total ao seu caso.
+          </p>
+
+          <div class="hero-cta">
+            <a href="#contato" class="btn-primary">📋 Consulta Gratuita</a>
+            <a href="#areas" class="btn-outline">Ver Áreas de Atuação</a>
+          </div>
+
+          <!-- 🛠 EDITE: selos/diferenciais do hero -->
+          <div class="hero-badges">
+            <div class="hero-badge-item"><span>✦</span> OAB Ativo</div>
+            <div class="hero-badge-item"><span>✦</span> +15 Anos de Experiência</div>
+            <div class="hero-badge-item"><span>✦</span> Atendimento Online</div>
+          </div>
+        </div>
+
+        <!-- 🛠 EDITE: estatísticas -->
+        <div class="hero-stats fade-up-d2">
+          <div class="stat-item">
+            <div class="stat-number">500+</div>
+            <div class="stat-label">Casos resolvidos com êxito</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">15</div>
+            <div class="stat-label">Anos de experiência jurídica</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">98%</div>
+            <div class="stat-label">Taxa de satisfação dos clientes</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">3</div>
+            <div class="stat-label">Áreas de atuação especializada</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       MARQUEE
+  ============================================================ -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <!-- 🛠 EDITE: textos do marquee -->
+      <div class="marquee-item"><span>§</span> Direito Civil</div>
+      <div class="marquee-item"><span>§</span> Direito Trabalhista</div>
+      <div class="marquee-item"><span>§</span> Direito de Família</div>
+      <div class="marquee-item"><span>§</span> Direito Empresarial</div>
+      <div class="marquee-item"><span>§</span> Direito Imobiliário</div>
+      <div class="marquee-item"><span>§</span> Planejamento Patrimonial</div>
+      <div class="marquee-item"><span>§</span> Inventários e Heranças</div>
+      <!-- duplicata para loop contínuo -->
+      <div class="marquee-item"><span>§</span> Direito Civil</div>
+      <div class="marquee-item"><span>§</span> Direito Trabalhista</div>
+      <div class="marquee-item"><span>§</span> Direito de Família</div>
+      <div class="marquee-item"><span>§</span> Direito Empresarial</div>
+      <div class="marquee-item"><span>§</span> Direito Imobiliário</div>
+      <div class="marquee-item"><span>§</span> Planejamento Patrimonial</div>
+      <div class="marquee-item"><span>§</span> Inventários e Heranças</div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       ÁREAS DE ATUAÇÃO
+  ============================================================ -->
+  <section class="areas" id="areas">
+    <div class="container">
+      <span class="section-label">Especialidades</span>
+      <h2 class="section-title">Áreas de Atuação</h2>
+      <div class="divider"></div>
+
+      <div class="areas-grid">
+        <!-- 🛠 EDITE: cada area-card é uma área de atuação
+             Adicione ou remova cards conforme necessário -->
+        <div class="area-card">
+          <span class="area-icon">👨‍👩‍👧</span>
+          <h3>Direito de Família</h3>
+          <p>Divórcio, guarda de filhos, pensão alimentícia, adoção e planejamento sucessório com empatia e discrição.</p>
+        </div>
+        <div class="area-card">
+          <span class="area-icon">⚖️</span>
+          <h3>Direito Civil</h3>
+          <p>Contratos, responsabilidade civil, indenizações, cobranças e defesa dos seus direitos em todas as instâncias.</p>
+        </div>
+        <div class="area-card">
+          <span class="area-icon">🏢</span>
+          <h3>Direito Empresarial</h3>
+          <p>Abertura e encerramento de empresas, contratos societários, recuperação judicial e disputas comerciais.</p>
+        </div>
+        <div class="area-card">
+          <span class="area-icon">🏠</span>
+          <h3>Direito Imobiliário</h3>
+          <p>Compra e venda, locação, usucapião, regularização de imóveis e disputas condominiais.</p>
+        </div>
+        <div class="area-card">
+          <span class="area-icon">👷</span>
+          <h3>Direito Trabalhista</h3>
+          <p>Reclamações trabalhistas, rescisões, horas extras, assédio moral e defesa de empregadores e empregados.</p>
+        </div>
+        <div class="area-card">
+          <span class="area-icon">📜</span>
+          <h3>Inventários & Herança</h3>
+          <p>Inventário judicial e extrajudicial, testamentos, planejamento patrimonial e partilha de bens.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SOBRE
+  ============================================================ -->
+  <section class="sobre" id="sobre">
+    <div class="container">
+      <div class="sobre-inner">
+        <div class="sobre-photo">
+          <!-- 🛠 EDITE: substitua pelo <img> com sua foto profissional -->
+          <div class="sobre-photo-frame">
+            <span>📷</span>
+            <p style="font-size:.8rem;max-width:180px;">
+              Insira aqui sua foto profissional<br/>
+              <code style="font-size:.7rem;color:var(--gold)">&lt;img src="sua-foto.jpg"&gt;</code>
+            </p>
+          </div>
+          <!-- 🛠 EDITE: número da OAB -->
+          <div class="sobre-oab">OAB/SP 000.000</div>
+        </div>
+
+        <div class="sobre-text">
+          <span class="section-label">Quem sou eu</span>
+          <!-- 🛠 EDITE: nome do advogado -->
+          <h2 class="section-title">Dr. Nome<br/>Sobrenome</h2>
+          <div class="divider"></div>
+
+          <!-- 🛠 EDITE: frase de impacto -->
+          <blockquote>
+            "Cada caso é único. Meu compromisso é entender profundamente a sua situação e lutar pelo melhor resultado possível."
+          </blockquote>
+
+          <!-- 🛠 EDITE: texto sobre o advogado -->
+          <p style="color:var(--muted);font-size:.9rem;line-height:1.8;margin-bottom:1.5rem">
+            Formado pela Faculdade de Direito da USP, com mais de 15 anos de atuação nas áreas cível, familiar e empresarial.
+            Pós-graduado em Direito Processual Civil e membro ativo da Comissão de Direito de Família da OAB/SP.
+          </p>
+
+          <!-- 🛠 EDITE: credenciais/formação -->
+          <div class="sobre-credentials">
+            <div class="credential-item">
+              <div class="credential-bullet"></div>
+              <div class="credential-text"><strong>Graduação</strong> — Faculdade de Direito da USP (2008)</div>
+            </div>
+            <div class="credential-item">
+              <div class="credential-bullet"></div>
+              <div class="credential-text"><strong>Pós-graduação</strong> — Direito Processual Civil, PUC-SP (2011)</div>
+            </div>
+            <div class="credential-item">
+              <div class="credential-bullet"></div>
+              <div class="credential-text"><strong>Membro</strong> — Comissão de Direito de Família OAB/SP</div>
+            </div>
+            <div class="credential-item">
+              <div class="credential-bullet"></div>
+              <div class="credential-text"><strong>Especialização</strong> — Mediação e Arbitragem, FGV (2015)</div>
+            </div>
+          </div>
+
+          <div style="margin-top:2rem">
+            <a href="#contato" class="btn-primary">Agendar Consulta</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       COMO FUNCIONA
+  ============================================================ -->
+  <section class="processo" id="processo">
+    <div class="container">
+      <span class="section-label">Passo a Passo</span>
+      <h2 class="section-title">Como Funciona</h2>
+      <div class="divider"></div>
+
+      <div class="processo-steps">
+        <!-- 🛠 EDITE: etapas do processo -->
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3>Contato Inicial</h3>
+          <p>Envie uma mensagem pelo WhatsApp ou preencha o formulário. Respondemos em até 2 horas.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3>Consulta Jurídica</h3>
+          <p>Analisamos seu caso em uma reunião presencial ou por videoconferência, de forma gratuita.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3>Estratégia</h3>
+          <p>Desenvolvemos o melhor caminho jurídico para o seu caso, com transparência total de custos.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">4</div>
+          <h3>Acompanhamento</h3>
+          <p>Você recebe atualizações regulares sobre o andamento do processo até a resolução final.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       DEPOIMENTOS
+  ============================================================ -->
+  <section class="depoimentos" id="depoimentos">
+    <div class="container">
+      <span class="section-label">O que dizem</span>
+      <h2 class="section-title">Clientes Satisfeitos</h2>
+      <div class="divider"></div>
+
+      <div class="depo-grid">
+        <!-- 🛠 EDITE: depoimentos — troque nomes, textos e cargos -->
+        <div class="depo-card">
+          <div class="depo-quote">"</div>
+          <div class="depo-stars">★★★★★</div>
+          <p class="depo-text">Processo de divórcio extremamente delicado conduzido com toda a sensibilidade e profissionalismo. Fui muito bem orientada em cada etapa.</p>
+          <div class="depo-author">
+            <div class="depo-avatar">C</div>
+            <div>
+              <div class="depo-name">Carla Monteiro</div>
+              <div class="depo-role">Direito de Família</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="depo-card">
+          <div class="depo-quote">"</div>
+          <div class="depo-stars">★★★★★</div>
+          <p class="depo-text">Ganhei minha causa trabalhista após anos tentando. A estratégia foi brilhante e a comunicação impecável. Recomendo sem hesitação.</p>
+          <div class="depo-author">
+            <div class="depo-avatar">J</div>
+            <div>
+              <div class="depo-name">João Paulo Silva</div>
+              <div class="depo-role">Direito Trabalhista</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="depo-card">
+          <div class="depo-quote">"</div>
+          <div class="depo-stars">★★★★★</div>
+          <p class="depo-text">Regularizamos toda a documentação da empresa em tempo recorde. Atendimento ágil, claro e muito competente. Parceiro de confiança.</p>
+          <div class="depo-author">
+            <div class="depo-avatar">F</div>
+            <div>
+              <div class="depo-name">Fernanda Castro</div>
+              <div class="depo-role">Direito Empresarial</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CONTATO
+  ============================================================ -->
+  <section class="contato" id="contato">
+    <div class="container">
+      <span class="section-label">Fale Conosco</span>
+      <h2 class="section-title">Agende sua<br/>Consulta</h2>
+      <div class="divider"></div>
+
+      <div class="contato-inner">
+        <div class="contact-info">
+          <!-- 🛠 EDITE: dados de contato -->
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div>
+              <div class="contact-label">Endereço</div>
+              <div class="contact-value">Av. Paulista, 1000 — Sala 1010<br/>São Paulo, SP — CEP 01310-100</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📞</div>
+            <div>
+              <div class="contact-label">Telefone / WhatsApp</div>
+              <div class="contact-value">(11) 99999-9999</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">✉️</div>
+            <div>
+              <div class="contact-label">E-mail</div>
+              <div class="contact-value">contato@drsobrenome.adv.br</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">🕐</div>
+            <div>
+              <div class="contact-label">Horário de Atendimento</div>
+              <div class="contact-value">Seg–Sex: 9h às 18h<br/>Sáb: 9h às 13h (com hora marcada)</div>
+            </div>
+          </div>
+
+          <a href="https://wa.me/5511999999999?text=Olá!%20Gostaria%20de%20agendar%20uma%20consulta%20jurídica." target="_blank" class="btn-primary" style="margin-top:.5rem;align-self:flex-start">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+              <path d="M12 0C5.373 0 0 5.373 0 12c0 2.116.551 4.107 1.516 5.836L.057 23.204a.75.75 0 00.92.92l5.368-1.459A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/>
+            </svg>
+            Chamar no WhatsApp
+          </a>
+        </div>
+
+        <!-- Formulário de contato -->
+        <div>
+          <div class="contact-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Nome completo</label>
+                <input type="text" class="form-input" placeholder="Seu nome" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">WhatsApp</label>
+                <input type="tel" class="form-input" placeholder="(11) 99999-9999" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">E-mail</label>
+              <input type="email" class="form-input" placeholder="seu@email.com" />
+            </div>
+            <!-- 🛠 EDITE: opções da área jurídica -->
+            <div class="form-group">
+              <label class="form-label">Área jurídica</label>
+              <select class="form-select">
+                <option value="" disabled selected>Selecione uma área</option>
+                <option>Direito de Família</option>
+                <option>Direito Civil</option>
+                <option>Direito Empresarial</option>
+                <option>Direito Imobiliário</option>
+                <option>Direito Trabalhista</option>
+                <option>Inventários & Herança</option>
+                <option>Outro</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Descreva sua situação</label>
+              <textarea class="form-textarea" placeholder="Conte brevemente sobre o seu caso..."></textarea>
+            </div>
+            <button class="form-submit" onclick="sendFormWhatsApp()">
+              Enviar pelo WhatsApp →
+            </button>
+            <p class="form-disclaimer">
+              Suas informações são tratadas com total sigilo e confidencialidade, conforme o Código de Ética da OAB.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <!-- 🛠 EDITE: nome e OAB no footer -->
+          <div class="footer-brand">DR. NOME <span>SOBRENOME</span></div>
+          <div class="footer-oab">OAB/SP 000.000</div>
+          <p class="footer-desc">Advocacia comprometida com a defesa dos seus direitos, com ética, transparência e resultados.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navegação</h4>
+          <ul>
+            <li><a href="#areas">Áreas de Atuação</a></li>
+            <li><a href="#sobre">Sobre o Advogado</a></li>
+            <li><a href="#processo">Como Funciona</a></li>
+            <li><a href="#depoimentos">Depoimentos</a></li>
+            <li><a href="#contato">Contato</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contato</h4>
+          <ul>
+            <!-- 🛠 EDITE: links de contato -->
+            <li><a href="https://wa.me/5511999999999" target="_blank">WhatsApp</a></li>
+            <li><a href="https://instagram.com/drsobrenome" target="_blank">Instagram</a></li>
+            <li><a href="https://linkedin.com/in/drsobrenome" target="_blank">LinkedIn</a></li>
+            <li><a href="mailto:contato@drsobrenome.adv.br">E-mail</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <!-- 🛠 EDITE: ano e nome -->
+        <span>© 2025 Dr. Nome Sobrenome. Todos os direitos reservados.</span>
+        <span style="color:var(--gold)">OAB/SP 000.000</span>
+      </div>
+      <p class="footer-disclaimer">
+        Este site tem caráter meramente informativo e não constitui prestação de serviços advocatícios. A contratação de serviços jurídicos depende de consulta prévia e celebração de contrato de honorários.
+      </p>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       BOTÃO WA FLUTUANTE
+  ============================================================ -->
+  <!-- 🛠 EDITE: número WhatsApp -->
+  <a href="https://wa.me/5511999999999?text=Olá!%20Gostaria%20de%20agendar%20uma%20consulta%20jurídica." target="_blank" class="wa-float">
+    <svg viewBox="0 0 24 24" fill="white" width="22" height="22">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+      <path d="M12 0C5.373 0 0 5.373 0 12c0 2.116.551 4.107 1.516 5.836L.057 23.204a.75.75 0 00.92.92l5.368-1.459A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/>
+    </svg>
+    <span class="wa-text">Consulta Gratuita</span>
+  </a>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <!-- ============================================================
+       JAVASCRIPT
+  ============================================================ -->
+  <script>
+    // 🛠 EDITE: número WhatsApp (5511999999999) e nome do advogado
+    const WHATSAPP_NUMBER = '5511999999999';
+    const ADVOGADO_NOME   = 'Dr. Nome Sobrenome';
+
+    /* ── Formulário → WhatsApp ── */
+    function sendFormWhatsApp() {
+      const nome   = document.querySelectorAll('.form-input')[0]?.value.trim();
+      const tel    = document.querySelectorAll('.form-input')[1]?.value.trim();
+      const email  = document.querySelectorAll('.form-input')[2]?.value.trim();
+      const area   = document.querySelector('.form-select')?.value;
+      const desc   = document.querySelector('.form-textarea')?.value.trim();
+
+      if (!nome) { showToast('⚠️ Informe seu nome'); return; }
+      if (!tel)  { showToast('⚠️ Informe seu WhatsApp'); return; }
+
+      let msg = `⚖️ *Solicitação de Consulta — ${ADVOGADO_NOME}*\n\n`;
+      msg += `👤 *Nome:* ${nome}\n`;
+      if (tel)   msg += `📞 *Telefone:* ${tel}\n`;
+      if (email) msg += `✉️ *E-mail:* ${email}\n`;
+      if (area)  msg += `📋 *Área:* ${area}\n`;
+      if (desc)  msg += `\n📝 *Situação:*\n${desc}`;
+
+      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    /* ── Toast ── */
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+  </script>
+</body>
+</html>
